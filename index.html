@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LegalHelp – Draft Agreements with Confidence</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo">Legal<span>Help</span></a>
+      <nav>
+        <ul class="nav__links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#contact" class="btn btn--outline">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <h1 class="hero__title">Draft Legal Agreements<br /><span>Simply &amp; Confidently</span></h1>
+      <p class="hero__subtitle">LegalHelp takes the complexity out of legal documents. Create, customise, and sign agreements in minutes — no law degree required.</p>
+      <div class="hero__cta">
+        <a href="#services" class="btn btn--primary">Explore Services</a>
+        <a href="#how" class="btn btn--ghost">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section about">
+    <div class="container about__inner">
+      <div class="about__text">
+        <span class="label">Who We Are</span>
+        <h2>Your Trusted Legal Partner</h2>
+        <p>LegalHelp is an online platform built to make legal agreements accessible to everyone — individuals, freelancers, startups, and established businesses alike.</p>
+        <p>We combine professionally drafted templates with intuitive customisation tools so you always have legally sound documents without the cost of a traditional law firm.</p>
+      </div>
+      <div class="about__stats">
+        <div class="stat">
+          <strong>10,000+</strong>
+          <span>Agreements created</span>
+        </div>
+        <div class="stat">
+          <strong>50+</strong>
+          <span>Document templates</span>
+        </div>
+        <div class="stat">
+          <strong>98%</strong>
+          <span>Customer satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section services">
+    <div class="container">
+      <span class="label center">What We Offer</span>
+      <h2 class="center">Our Services</h2>
+      <div class="services__grid">
+        <div class="card">
+          <div class="card__icon">📄</div>
+          <h3>Contract Templates</h3>
+          <p>Choose from 50+ professionally drafted templates covering employment, freelance, NDA, lease, and more.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">✏️</div>
+          <h3>Custom Drafting</h3>
+          <p>Answer a few guided questions and our platform generates a tailored agreement ready for review.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🔏</div>
+          <h3>e-Signature</h3>
+          <p>Send documents for legally binding e-signatures and track signing status in real time.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🗂️</div>
+          <h3>Document Storage</h3>
+          <p>Securely store all your signed agreements in one place — accessible from any device, any time.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🔔</div>
+          <h3>Renewal Alerts</h3>
+          <p>Never miss a renewal date. Set reminders and receive notifications before key contract milestones.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">💬</div>
+          <h3>Legal Guidance</h3>
+          <p>Plain-English explanations for every clause so you always understand what you're signing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how" class="section how">
+    <div class="container">
+      <span class="label center">Simple Process</span>
+      <h2 class="center">How It Works</h2>
+      <div class="how__steps">
+        <div class="step">
+          <div class="step__num">1</div>
+          <h3>Choose a Template</h3>
+          <p>Browse our library and select the document type that fits your needs.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <h3>Customise</h3>
+          <p>Fill in the details via our guided form. Preview changes instantly.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <h3>Sign &amp; Share</h3>
+          <p>Send for e-signature and download your completed, binding document.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <div class="container contact__inner">
+      <div class="contact__text">
+        <span class="label">Get In Touch</span>
+        <h2>Ready to Get Started?</h2>
+        <p>Have a question or need a bespoke document? Our team is here to help.</p>
+        <ul class="contact__details">
+          <li>📧 hello@legalhelp.io</li>
+          <li>📞 +1 (800) 555-0199</li>
+          <li>🏢 123 Legal Lane, New York, NY 10001</li>
+        </ul>
+      </div>
+      <form class="contact__form" onsubmit="handleSubmit(event)">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Email Address" required />
+        <textarea rows="4" placeholder="How can we help you?"></textarea>
+        <button type="submit" class="btn btn--primary">Send Message</button>
+        <p class="form__success" id="formSuccess">Thanks! We'll be in touch shortly.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="nav__logo">Legal<span>Help</span></span>
+      <p>© 2026 LegalHelp. All rights reserved.</p>
+      <ul class="footer__links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('formSuccess').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
