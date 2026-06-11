@@ -160,6 +160,49 @@
   padding-top: .5rem;
 }
 
+/* ── State selector ─────────────────────────── */
+.state-selector-wrap {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--blue-light);
+  border: 1.5px solid rgba(26,86,219,.2);
+  border-radius: var(--radius);
+}
+.state-selector-label {
+  display: flex; flex-direction: column; gap: .3rem;
+  font-size: .875rem; font-weight: 700; color: var(--navy);
+  margin-bottom: .75rem; cursor: default;
+}
+.state-selector-hint { font-size: .8rem; font-weight: 400; color: var(--muted); }
+.state-select {
+  width: 100%; max-width: 400px;
+  padding: .7rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: .95rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+}
+.state-select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,.12); }
+
+/* State note in step 2 */
+.state-note {
+  display: flex; align-items: center; gap: .5rem;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 8px; padding: .75rem 1rem;
+  font-size: .875rem; color: #166534;
+  margin-bottom: 1.25rem;
+}
+.state-badge {
+  font-weight: 700; color: #14532d;
+  background: #dcfce7; padding: .2rem .6rem;
+  border-radius: 100px; margin-right: .25rem;
+  white-space: nowrap;
+}
+
 /* ── Responsive ─────────────────────────────── */
 @media (max-width: 640px) {
   .builder__body  { padding: 2rem 0 4rem; }

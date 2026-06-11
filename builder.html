@@ -50,30 +50,40 @@
         <h2>Choose Agreement Type</h2>
         <p class="step-sub">Select the type of agreement you need to create.</p>
         <div class="type-grid">
-          <button class="type-card" onclick="selectType('nda', this)">
+          <button class="type-card" data-type="nda" onclick="selectType('nda', this)">
             <div class="type-card__icon">🤝</div>
             <h3>Non-Disclosure Agreement</h3>
             <p>Protect confidential information shared between two parties.</p>
             <span class="type-card__tag">NDA</span>
           </button>
-          <button class="type-card" onclick="selectType('employment', this)">
+          <button class="type-card" data-type="employment" onclick="selectType('employment', this)">
             <div class="type-card__icon">💼</div>
             <h3>Employment Contract</h3>
             <p>Define the terms and conditions of an employment relationship.</p>
             <span class="type-card__tag">Employment</span>
           </button>
-          <button class="type-card" onclick="selectType('freelance', this)">
+          <button class="type-card" data-type="freelance" onclick="selectType('freelance', this)">
             <div class="type-card__icon">🖥️</div>
             <h3>Freelance Agreement</h3>
             <p>Set out the scope, deliverables, and payment for freelance work.</p>
             <span class="type-card__tag">Freelance</span>
           </button>
-          <button class="type-card" onclick="selectType('lease', this)">
+          <button class="type-card" data-type="lease" onclick="selectType('lease', this)">
             <div class="type-card__icon">🏠</div>
             <h3>Lease Agreement</h3>
             <p>Establish the terms for renting a residential or commercial property.</p>
             <span class="type-card__tag">Lease</span>
           </button>
+        </div>
+        <!-- State selector -->
+        <div class="state-selector-wrap">
+          <label class="state-selector-label" for="stateSelect">
+            📍 Select Your State <span class="req">*</span>
+            <span class="state-selector-hint">State-specific legal provisions are automatically added to your document.</span>
+          </label>
+          <select id="stateSelect" class="state-select" onchange="selectStateVal(this.value)">
+            <!-- Populated by app.js -->
+          </select>
         </div>
         <div class="builder__nav">
           <span></span>
@@ -85,6 +95,7 @@
       <div class="builder__step hidden" id="step-2">
         <h2 id="formTitle">Fill In Your Details</h2>
         <p class="step-sub">All fields are used to generate your personalised agreement.</p>
+        <div class="state-note" id="stateNote"></div>
         <form id="agreementForm" class="details-form">
           <div id="formFields"></div>
         </form>
