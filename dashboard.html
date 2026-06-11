@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – LegalHelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="dash-page">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1a56db"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      Legal<span>Help</span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="sidebar__link active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+        Dashboard
+      </a>
+      <a href="builder.html" class="sidebar__link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>
+        New Agreement
+      </a>
+      <a href="index.html" class="sidebar__link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/></svg>
+        Home
+      </a>
+    </nav>
+    <div class="sidebar__section-title">Agreement Types</div>
+    <nav class="sidebar__nav">
+      <a href="builder.html" class="sidebar__link" onclick="localStorage.setItem('preselect','nda')">🤝 NDA</a>
+      <a href="builder.html" class="sidebar__link" onclick="localStorage.setItem('preselect','employment')">💼 Employment</a>
+      <a href="builder.html" class="sidebar__link" onclick="localStorage.setItem('preselect','freelance')">🖥️ Freelance</a>
+      <a href="builder.html" class="sidebar__link" onclick="localStorage.setItem('preselect','lease')">🏠 Lease</a>
+    </nav>
+    <div class="sidebar__footer">
+      <button class="sidebar__clear" onclick="clearHistory()">Clear History</button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="dash-main">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="topbar__menu" onclick="document.getElementById('sidebar').classList.toggle('open')">&#9776;</button>
+        <h1>Dashboard</h1>
+      </div>
+      <div class="topbar__right">
+        <a href="builder.html" class="btn btn--primary">+ New Agreement</a>
+      </div>
+    </header>
+
+    <div class="dash-content">
+
+      <!-- Stats row -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#fff" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="stat-card__value" id="statTotal">0</div>
+            <div class="stat-card__label">Total Agreements</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#fff" stroke-width="2"/><polyline points="22 4 12 14.01 9 11.01" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="stat-card__value" id="statMonth">0</div>
+            <div class="stat-card__label">This Month</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="stat-card__value" id="statRecent">—</div>
+            <div class="stat-card__label">Most Used Type</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="stat-card__value" id="statStates">0</div>
+            <div class="stat-card__label">States Covered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="dash-grid">
+
+        <!-- Agreements table -->
+        <div class="dash-card dash-card--wide">
+          <div class="dash-card__header">
+            <h2>Recent Agreements</h2>
+            <div class="filter-row">
+              <select id="filterType" onchange="renderTable()">
+                <option value="">All Types</option>
+                <option value="nda">NDA</option>
+                <option value="employment">Employment</option>
+                <option value="freelance">Freelance</option>
+                <option value="lease">Lease</option>
+              </select>
+              <select id="filterState" onchange="renderTable()">
+                <option value="">All States</option>
+              </select>
+            </div>
+          </div>
+          <div id="tableWrap">
+            <div class="empty-state" id="emptyState">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#d1d5db" stroke-width="1.5"/><polyline points="14 2 14 8 20 8" stroke="#d1d5db" stroke-width="1.5"/></svg>
+              <p>No agreements yet.</p>
+              <a href="builder.html" class="btn btn--primary" style="margin-top:.75rem">Create your first agreement</a>
+            </div>
+            <table class="ag-table hidden" id="agTable">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Parties</th>
+                  <th>State</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right panel -->
+        <div class="dash-right">
+
+          <!-- Breakdown chart -->
+          <div class="dash-card">
+            <div class="dash-card__header"><h2>By Type</h2></div>
+            <div class="breakdown" id="breakdown">
+              <div class="breakdown-empty">No data yet</div>
+            </div>
+          </div>
+
+          <!-- Quick create -->
+          <div class="dash-card">
+            <div class="dash-card__header"><h2>Quick Create</h2></div>
+            <div class="quick-grid">
+              <a href="builder.html" class="quick-btn" onclick="localStorage.setItem('preselect','nda')">🤝<span>NDA</span></a>
+              <a href="builder.html" class="quick-btn" onclick="localStorage.setItem('preselect','employment')">💼<span>Employment</span></a>
+              <a href="builder.html" class="quick-btn" onclick="localStorage.setItem('preselect','freelance')">🖥️<span>Freelance</span></a>
+              <a href="builder.html" class="quick-btn" onclick="localStorage.setItem('preselect','lease')">🏠<span>Lease</span></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div class="modal-overlay hidden" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 id="modalTitle">Agreement Preview</h3>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn--outline" onclick="copyModal()">📋 Copy</button>
+          <button class="btn btn--primary" onclick="downloadModal()">⬇ Download</button>
+          <button class="modal__close" onclick="closeModal()">&times;</button>
+        </div>
+      </div>
+      <div class="modal__body">
+        <pre id="modalText"></pre>
+      </div>
+    </div>
+  </div>
+  <div id="copyToast" class="toast">Copied to clipboard!</div>
+
+  <script src="app.js"></script>
+  <script>
+    let history = [];
+    let modalCurrentText = '';
+
+    function loadHistory() {
+      try { history = JSON.parse(localStorage.getItem('lh_agreements') || '[]'); } catch(e) { history = []; }
+    }
+
+    function renderStats() {
+      const now = new Date();
+      const monthAgo = new Date(now.getFullYear(), now.getMonth(), 1);
+      const thisMonth = history.filter(a => new Date(a.createdAt) >= monthAgo).length;
+      const states = [...new Set(history.map(a => a.state))].length;
+      const typeCount = {};
+      history.forEach(a => typeCount[a.type] = (typeCount[a.type]||0)+1);
+      const topType = Object.entries(typeCount).sort((a,b)=>b[1]-a[1])[0];
+      const typeLabels = { nda:'NDA', employment:'Employment', freelance:'Freelance', lease:'Lease' };
+      document.getElementById('statTotal').textContent = history.length;
+      document.getElementById('statMonth').textContent = thisMonth;
+      document.getElementById('statRecent').textContent = topType ? typeLabels[topType[0]] : '—';
+      document.getElementById('statStates').textContent = states;
+    }
+
+    function renderBreakdown() {
+      const container = document.getElementById('breakdown');
+      const typeCount = { nda:0, employment:0, freelance:0, lease:0 };
+      history.forEach(a => typeCount[a.type]++);
+      const total = history.length;
+      if (!total) { container.innerHTML='<div class="breakdown-empty">No data yet</div>'; return; }
+      const colors = { nda:'#1a56db', employment:'#10b981', freelance:'#f59e0b', lease:'#8b5cf6' };
+      const labels = { nda:'NDA', employment:'Employment', freelance:'Freelance', lease:'Lease' };
+      container.innerHTML = Object.entries(typeCount).filter(([,v])=>v>0).map(([k,v]) => `
+        <div class="bar-row">
+          <span class="bar-label">${labels[k]}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/total*100)}%;background:${colors[k]}"></div></div>
+          <span class="bar-count">${v}</span>
+        </div>`).join('');
+    }
+
+    function populateStateFilter() {
+      const states = [...new Set(history.map(a => a.state))].sort();
+      const sel = document.getElementById('filterState');
+      sel.innerHTML = '<option value="">All States</option>' +
+        states.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    function renderTable() {
+      const typeFilter  = document.getElementById('filterType').value;
+      const stateFilter = document.getElementById('filterState').value;
+      let data = [...history].reverse();
+      if (typeFilter)  data = data.filter(a => a.type === typeFilter);
+      if (stateFilter) data = data.filter(a => a.state === stateFilter);
+      const typeLabels = { nda:'NDA', employment:'Employment', freelance:'Freelance', lease:'Lease' };
+      const typeBadge  = { nda:'badge--blue', employment:'badge--green', freelance:'badge--gold', lease:'badge--purple' };
+      const emptyEl = document.getElementById('emptyState');
+      const tableEl = document.getElementById('agTable');
+      if (!data.length) {
+        emptyEl.classList.remove('hidden'); tableEl.classList.add('hidden'); return;
+      }
+      emptyEl.classList.add('hidden'); tableEl.classList.remove('hidden');
+      document.getElementById('tableBody').innerHTML = data.map((a,i) => `
+        <tr>
+          <td><span class="badge ${typeBadge[a.type]}">${typeLabels[a.type]}</span></td>
+          <td class="parties-cell">${a.parties}</td>
+          <td><span class="state-pill">${a.state}</span></td>
+          <td>${new Date(a.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
+          <td><button class="view-btn" onclick="viewAgreement(${history.length-1-i})">View →</button></td>
+        </tr>`).join('');
+    }
+
+    function viewAgreement(idx) {
+      const a = history[idx];
+      const typeLabels = { nda:'NDA', employment:'Employment Contract', freelance:'Freelance Agreement', lease:'Lease Agreement' };
+      document.getElementById('modalTitle').textContent = `${typeLabels[a.type]} — ${a.state}`;
+      document.getElementById('modalText').textContent = a.text;
+      modalCurrentText = a.text;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('modalOverlay')) return;
+      document.getElementById('modalOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function copyModal() {
+      navigator.clipboard.writeText(modalCurrentText).then(() => {
+        const t = document.getElementById('copyToast');
+        t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500);
+      });
+    }
+
+    function downloadModal() {
+      const blob = new Blob([modalCurrentText], {type:'text/plain'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = `LegalHelp_Agreement_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    function clearHistory() {
+      if (!confirm('Delete all saved agreements? This cannot be undone.')) return;
+      localStorage.removeItem('lh_agreements'); history = [];
+      renderStats(); renderBreakdown(); populateStateFilter(); renderTable();
+    }
+
+    loadHistory(); renderStats(); renderBreakdown(); populateStateFilter(); renderTable();
+  </script>
+</body>
+</html>
