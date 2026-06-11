@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agreement Builder – LegalHelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="builder.css" />
+</head>
+<body class="builder-page">
+
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1a56db"/><path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        Legal<span>Help</span>
+      </a>
+      <nav>
+        <ul class="nav__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="builder">
+    <div class="builder__header">
+      <div class="container">
+        <h1>Agreement Builder</h1>
+        <p>Create a professional legal document in minutes. No account required.</p>
+        <!-- Step indicator -->
+        <div class="steps-indicator">
+          <div class="step-dot active" id="dot-1"><span>1</span><label>Type</label></div>
+          <div class="step-line"></div>
+          <div class="step-dot" id="dot-2"><span>2</span><label>Details</label></div>
+          <div class="step-line"></div>
+          <div class="step-dot" id="dot-3"><span>3</span><label>Preview</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container builder__body">
+
+      <!-- Step 1: Choose Type -->
+      <div class="builder__step" id="step-1">
+        <h2>Choose Agreement Type</h2>
+        <p class="step-sub">Select the type of agreement you need to create.</p>
+        <div class="type-grid">
+          <button class="type-card" onclick="selectType('nda', this)">
+            <div class="type-card__icon">🤝</div>
+            <h3>Non-Disclosure Agreement</h3>
+            <p>Protect confidential information shared between two parties.</p>
+            <span class="type-card__tag">NDA</span>
+          </button>
+          <button class="type-card" onclick="selectType('employment', this)">
+            <div class="type-card__icon">💼</div>
+            <h3>Employment Contract</h3>
+            <p>Define the terms and conditions of an employment relationship.</p>
+            <span class="type-card__tag">Employment</span>
+          </button>
+          <button class="type-card" onclick="selectType('freelance', this)">
+            <div class="type-card__icon">🖥️</div>
+            <h3>Freelance Agreement</h3>
+            <p>Set out the scope, deliverables, and payment for freelance work.</p>
+            <span class="type-card__tag">Freelance</span>
+          </button>
+          <button class="type-card" onclick="selectType('lease', this)">
+            <div class="type-card__icon">🏠</div>
+            <h3>Lease Agreement</h3>
+            <p>Establish the terms for renting a residential or commercial property.</p>
+            <span class="type-card__tag">Lease</span>
+          </button>
+        </div>
+        <div class="builder__nav">
+          <span></span>
+          <button class="btn btn--primary" onclick="goToStep(2)" id="nextBtn1" disabled>Next: Fill Details →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Fill Details -->
+      <div class="builder__step hidden" id="step-2">
+        <h2 id="formTitle">Fill In Your Details</h2>
+        <p class="step-sub">All fields are used to generate your personalised agreement.</p>
+        <form id="agreementForm" class="details-form">
+          <div id="formFields"></div>
+        </form>
+        <div class="builder__nav">
+          <button class="btn btn--outline" onclick="goToStep(1)">← Back</button>
+          <button class="btn btn--primary" onclick="generatePreview()">Preview Agreement →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Preview -->
+      <div class="builder__step hidden" id="step-3">
+        <div class="preview-toolbar">
+          <h2>Your Agreement is Ready</h2>
+          <div class="preview-actions">
+            <button class="btn btn--outline" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+            <button class="btn btn--primary" onclick="downloadDoc()">⬇ Download .txt</button>
+          </div>
+        </div>
+        <div class="preview-wrap">
+          <div class="preview-doc" id="previewDoc"></div>
+        </div>
+        <div class="builder__nav">
+          <button class="btn btn--outline" onclick="goToStep(2)">← Edit Details</button>
+          <button class="btn btn--ghost" onclick="startOver()">Start Over</button>
+        </div>
+        <div id="copyToast" class="toast">Copied to clipboard!</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2026 LegalHelp. All rights reserved.</p>
+        <p>Documents are templates only and do not constitute legal advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
