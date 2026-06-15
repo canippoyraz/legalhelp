@@ -1,3 +1,5 @@
+'use client';
+
 import { jsPDF } from 'jspdf';
 import { AgreementType } from '@/types/agreement';
 
@@ -41,5 +43,6 @@ export function downloadAsPdf(text: string, type: AgreementType, stateCode: stri
   a.href = url;
   a.download = filename;
   a.click();
-  URL.revokeObjectURL(url);
+  // Revoke after a delay so the browser can read the URL before it's freed
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }

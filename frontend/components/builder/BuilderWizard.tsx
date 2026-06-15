@@ -34,14 +34,19 @@ export default function BuilderWizard() {
     values: FormValues,
   ) {
     try {
-      const existing: HistoryItem[] = JSON.parse(localStorage.getItem('lh_agreements') || '[]');
+      const parsed = JSON.parse(localStorage.getItem('lh_agreements') || '[]');
+      const existing: HistoryItem[] = Array.isArray(parsed) ? parsed : [];
       existing.push({
-        id: Date.now(), type, state, stateName,
+        id: crypto.randomUUID(), type, state, stateName,
         parties: getParties(type, values),
         createdAt: new Date().toISOString(), text,
       });
       localStorage.setItem('lh_agreements', JSON.stringify(existing));
-    } catch { /* localStorage not available */ }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'QuotaExceededError') {
+        console.warn('Storage quota exceeded — agreement not saved to history');
+      }
+    }
   }
 
   function startOver() {
@@ -86,6 +91,7 @@ export default function BuilderWizard() {
         )}
         {step === 2 && selectedType && (
           <Step2Details
+            key={selectedType}
             type={selectedType}
             config={FORM_CONFIGS[selectedType]}
             stateName={getStateName(selectedState)}

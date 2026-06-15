@@ -33,9 +33,9 @@ export default function Navigation() {
             <li><Link href="/builder" className="btn btn--primary">Create Agreement</Link></li>
           </ul>
         </nav>
-        <button className="nav__hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">&#9776;</button>
+        <button className="nav__hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="mobile-nav">&#9776;</button>
       </div>
-      <div className={`nav__mobile${menuOpen ? ' open' : ''}`}>
+      <div id="mobile-nav" className={`nav__mobile${menuOpen ? ' open' : ''}`}>
         <Link href="/#about" onClick={() => setMenuOpen(false)}>About</Link>
         <Link href="/#services" onClick={() => setMenuOpen(false)}>Services</Link>
         <Link href="/#how" onClick={() => setMenuOpen(false)}>How It Works</Link>

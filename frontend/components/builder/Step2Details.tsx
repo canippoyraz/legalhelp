@@ -53,6 +53,7 @@ export default function Step2Details({ config, stateName, stateCode, onBack, onG
                 type={field.type ?? 'text'}
                 placeholder={field.placeholder}
                 required={field.required}
+                min={field.min}
                 value={values[field.id]}
                 onChange={e => setValues(v => ({ ...v, [field.id]: e.target.value }))}
               />
