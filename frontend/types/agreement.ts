@@ -6,6 +6,7 @@ export interface FormField {
   placeholder?: string;
   required?: boolean;
   type?: 'text' | 'number' | 'date' | 'textarea';
+  min?: number;
 }
 
 export interface FormConfig {
@@ -18,7 +19,7 @@ export interface FormValues {
 }
 
 export interface HistoryItem {
-  id: number;
+  id: string;
   type: AgreementType;
   state: string;
   stateName: string;

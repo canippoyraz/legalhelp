@@ -1,3 +1,5 @@
+'use client';
+
 import { jsPDF } from 'jspdf';
 import { AgreementType } from '@/types/agreement';
 
@@ -32,5 +34,15 @@ export function downloadAsPdf(text: string, type: AgreementType, stateCode: stri
   }
 
   const date = new Date().toISOString().slice(0, 10);
-  doc.save(`LegalHelp_${FILE_NAMES[type]}_${stateCode}_${date}.pdf`);
+  const filename = `LegalHelp_${FILE_NAMES[type]}_${stateCode}_${date}.pdf`;
+
+  // jsPDF v4 save() is async; use blob + anchor to guarantee a real .pdf download
+  const blob = doc.output('blob');
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  // Revoke after a delay so the browser can read the URL before it's freed
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }

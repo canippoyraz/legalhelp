@@ -24,8 +24,8 @@ export default function DashboardClient() {
 
   useEffect(() => {
     try {
-      const stored = JSON.parse(localStorage.getItem('lh_agreements') || '[]');
-      setHistory(stored);
+      const parsed = JSON.parse(localStorage.getItem('lh_agreements') || '[]');
+      setHistory(Array.isArray(parsed) ? parsed : []);
     } catch { setHistory([]); }
   }, []);
 
@@ -180,7 +180,7 @@ export default function DashboardClient() {
                         <td><span className={`badge ${TYPE_BADGE[item.type]}`}>{TYPE_LABELS[item.type]}</span></td>
                         <td className="parties-cell">{item.parties}</td>
                         <td><span className="state-pill">{item.state}</span></td>
-                        <td>{new Date(item.createdAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}</td>
+                        <td>{(() => { const d = new Date(item.createdAt); return isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}); })()}</td>
                         <td><button className="view-btn" onClick={() => setModalItem(item)}>View →</button></td>
                       </tr>
                     ))}

@@ -2,7 +2,7 @@ import { AgreementType, FormValues } from '@/types/agreement';
 import { getStateProvision } from './stateProvisions';
 
 const SEP = '='.repeat(60);
-const LINE = '─'.repeat(60);
+const LINE = '-'.repeat(60);
 
 export function generateAgreementText(
   type: AgreementType,
