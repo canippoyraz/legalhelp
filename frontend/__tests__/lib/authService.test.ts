@@ -106,4 +106,32 @@ describe('authService', () => {
       compareSpy.mockRestore();
     });
   });
+
+  describe('when SESSION_SECRET is not configured', () => {
+    beforeEach(() => {
+      delete process.env.SESSION_SECRET;
+    });
+
+    it('signUp fails with a clean 500 instead of throwing', async () => {
+      const result = await signUp('nosecret@example.com', 'password123');
+      expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.status).toBe(500);
+    });
+
+    it('signUp does not create a user row when misconfigured', async () => {
+      await signUp('nosecret@example.com', 'password123');
+      const row = testDb.prepare('SELECT id FROM users WHERE email = ?').get('nosecret@example.com');
+      expect(row).toBeUndefined();
+    });
+
+    it('signIn fails with a clean 500 instead of throwing, even with correct credentials', async () => {
+      process.env.SESSION_SECRET = 'test-secret';
+      await signUp('nosecret2@example.com', 'password123');
+      delete process.env.SESSION_SECRET;
+
+      const result = await signIn('nosecret2@example.com', 'password123');
+      expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.status).toBe(500);
+    });
+  });
 });

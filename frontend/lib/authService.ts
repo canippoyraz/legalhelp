@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { getDb } from './db';
-import { createSessionValue } from './session';
+import { createSessionValue, hasSessionSecret } from './session';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 8;
@@ -26,7 +26,11 @@ function normalizeCredentials(rawEmail: unknown, rawPassword: unknown): { email:
   return { email: rawEmail.trim().toLowerCase(), password: rawPassword };
 }
 
+const MISCONFIGURED: AuthResult = { ok: false, status: 500, error: 'Sign in is not configured' };
+
 export async function signUp(rawEmail: unknown, rawPassword: unknown): Promise<AuthResult> {
+  if (!hasSessionSecret()) return MISCONFIGURED;
+
   const creds = normalizeCredentials(rawEmail, rawPassword);
   if (!creds || !EMAIL_RE.test(creds.email)) {
     return { ok: false, status: 400, error: 'Enter a valid email address' };
@@ -49,6 +53,8 @@ export async function signUp(rawEmail: unknown, rawPassword: unknown): Promise<A
 }
 
 export async function signIn(rawEmail: unknown, rawPassword: unknown): Promise<AuthResult> {
+  if (!hasSessionSecret()) return MISCONFIGURED;
+
   const genericError = { ok: false as const, status: 401, error: 'Invalid email or password' };
 
   const creds = normalizeCredentials(rawEmail, rawPassword);

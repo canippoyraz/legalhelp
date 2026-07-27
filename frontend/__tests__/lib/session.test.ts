@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { createHmac } from 'crypto';
-import { createSessionValue, verifySessionValue, SESSION_MAX_AGE } from '@/lib/session';
+import { createSessionValue, verifySessionValue, hasSessionSecret, SESSION_MAX_AGE } from '@/lib/session';
 
 describe('session', () => {
   const originalSecret = process.env.SESSION_SECRET;
@@ -69,5 +69,16 @@ describe('session', () => {
   it('throws when SESSION_SECRET is not configured', () => {
     delete process.env.SESSION_SECRET;
     expect(() => createSessionValue({ uid: 1, email: 'a@b.com' })).toThrow();
+  });
+
+  describe('hasSessionSecret', () => {
+    it('returns true when SESSION_SECRET is set', () => {
+      expect(hasSessionSecret()).toBe(true);
+    });
+
+    it('returns false when SESSION_SECRET is unset', () => {
+      delete process.env.SESSION_SECRET;
+      expect(hasSessionSecret()).toBe(false);
+    });
   });
 });
