@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { getResponse } from '@/lib/chatResponses';
+import { streamChat } from '@/lib/chatClient';
+import { ChatMessage } from '@/types/chat';
 
 interface Message {
   id: number;
@@ -52,10 +54,22 @@ function UserMessage({ text }: { text: string }) {
   );
 }
 
+function TypingIndicator() {
+  return (
+    <div className="chat-msg chat-msg--bot">
+      <div className="chat-msg__avatar">LH</div>
+      <div className="chat-msg__bubble chat-typing" aria-label="LegalHelp is typing">
+        <span /><span /><span />
+      </div>
+    </div>
+  );
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
+  const [isStreaming, setIsStreaming] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const idRef = useRef(1);
@@ -67,16 +81,34 @@ export default function ChatWidget() {
     }
   }, [open, messages]);
 
-  const send = useCallback(() => {
+  const send = useCallback(async () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || isStreaming) return;
 
     const userMsg: Message = { id: idRef.current++, role: 'user', text };
-    const botMsg: Message = { id: idRef.current++, role: 'bot', text: getResponse(text) };
+    const botId = idRef.current++;
+    const history: ChatMessage[] = [...messages, userMsg]
+      .filter(m => m.id !== INITIAL_MESSAGE.id)
+      .map(m => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.text }));
 
-    setMessages(prev => [...prev, userMsg, botMsg]);
+    setMessages(prev => [...prev, userMsg, { id: botId, role: 'bot', text: '' }]);
     setInput('');
-  }, [input]);
+    setIsStreaming(true);
+
+    try {
+      let received = '';
+      for await (const chunk of streamChat(history)) {
+        received += chunk;
+        setMessages(prev => prev.map(m => (m.id === botId ? { ...m, text: received } : m)));
+      }
+      if (!received) throw new Error('Empty response from chat API');
+    } catch {
+      const fallback = getResponse(text);
+      setMessages(prev => prev.map(m => (m.id === botId ? { ...m, text: fallback } : m)));
+    } finally {
+      setIsStreaming(false);
+    }
+  }, [input, isStreaming, messages]);
 
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') send();
@@ -114,11 +146,12 @@ export default function ChatWidget() {
           <div className="chat-disclaimer">{DISCLAIMER}</div>
 
           <div className="chat-messages">
-            {messages.map(m =>
-              m.role === 'bot'
+            {messages.map(m => {
+              if (m.role === 'user') return <UserMessage key={m.id} text={m.text} />;
+              return m.text
                 ? <BotMessage key={m.id} text={m.text} />
-                : <UserMessage key={m.id} text={m.text} />
-            )}
+                : <TypingIndicator key={m.id} />;
+            })}
             <div ref={bottomRef} />
           </div>
 
@@ -132,11 +165,12 @@ export default function ChatWidget() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
               maxLength={300}
+              disabled={isStreaming}
             />
             <button
               className="chat-send"
               onClick={send}
-              disabled={!input.trim()}
+              disabled={!input.trim() || isStreaming}
               aria-label="Send"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>

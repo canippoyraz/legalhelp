@@ -684,6 +684,19 @@ p  { color: var(--muted); }
 .chat-send:hover:not(:disabled) { background: var(--blue-dark); }
 .chat-send:disabled { opacity: .4; cursor: not-allowed; }
 
+.chat-typing { display: flex; gap: .25rem; align-items: center; padding: .75rem .85rem; }
+.chat-typing span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--muted); opacity: .5;
+  animation: chat-typing-bounce 1.2s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: .2s; }
+.chat-typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes chat-typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: .5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
 @media (max-width: 420px) {
   .chat-panel { width: calc(100vw - 2rem); right: 1rem; }
   .chat-fab   { right: 1rem; bottom: 1rem; }

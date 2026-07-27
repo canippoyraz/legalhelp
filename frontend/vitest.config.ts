@@ -11,7 +11,7 @@ export default defineConfig({
     include: ['**/__tests__/**/*.{test,spec}.{ts,tsx}'],
     coverage: {
       provider: 'v8',
-      include: ['lib/**', 'components/**'],
+      include: ['lib/**', 'components/**', 'app/api/**'],
       exclude: ['**/__tests__/**', '**/*.d.ts'],
       reporter: ['text', 'html'],
     },

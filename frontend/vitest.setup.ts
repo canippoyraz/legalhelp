@@ -48,6 +48,8 @@ Object.defineProperty(window, 'crypto', {
 URL.createObjectURL = vi.fn(() => 'blob:mock-url');
 URL.revokeObjectURL = vi.fn();
 
+Element.prototype.scrollIntoView = vi.fn();
+
 Object.defineProperty(window.navigator, 'clipboard', {
   value: { writeText: vi.fn().mockResolvedValue(undefined) },
   configurable: true,
