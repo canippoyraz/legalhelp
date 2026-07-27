@@ -60,6 +60,9 @@ next-env.d.ts
 *.sqlite
 *.sqlite3
 *.db
+*.db-shm
+*.db-wal
+*.db-journal
 
 # ── OS files ──────────────────────────────────
 .DS_Store
