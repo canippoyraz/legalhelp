@@ -3,9 +3,25 @@
 ## Setup
 ```bash
 cd frontend
+cp .env.local.example .env.local   # then set ANTHROPIC_API_KEY
 npm run dev
 # Open http://localhost:3000 in a browser
 ```
+
+---
+
+## 0. AI Chat Widget (all pages)
+
+| # | Action | Expected |
+|---|--------|----------|
+| 1 | Load any page (`/`, `/builder`, `/dashboard`) | Floating chat button visible bottom-right |
+| 2 | Click the chat button | Panel opens smoothly; disclaimer ("AI-generated guidance only — not legal advice…") visible; greeting message shown |
+| 3 | Ask "what is an NDA?" | Typing indicator (bouncing dots) appears, then a streamed, relevant answer from Claude replaces it word-by-word |
+| 4 | Ask a follow-up referencing the previous answer | Response shows the assistant used prior context (multi-turn) |
+| 5 | Send a message while a response is still streaming | Input and send button are disabled until the current response finishes |
+| 6 | Unset `ANTHROPIC_API_KEY` and restart dev server, then send a message | Falls back to a rule-based reply instead of an error or blank response |
+| 7 | Click the × button | Panel closes |
+| 8 | Resize to mobile (< 420 px) | Chat panel resizes to fit viewport width; button stays reachable |
 
 ---
 
