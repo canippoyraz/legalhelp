@@ -366,6 +366,19 @@ p  { color: var(--muted); }
   box-shadow: 0 0 0 3px rgba(26,86,219,.12);
 }
 
+.auth-page { display: flex; justify-content: center; padding: 4rem 0; }
+.auth-card { width: 100%; max-width: 420px; }
+.auth-card h1 { font-size: 1.5rem; margin-bottom: .4rem; }
+.auth-subtitle { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
+.auth-error {
+  background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c;
+  border-radius: 8px; padding: .65rem .85rem; font-size: .875rem;
+  margin-bottom: 1.25rem;
+}
+.auth-card .btn { width: 100%; justify-content: center; }
+.auth-switch { text-align: center; font-size: .875rem; color: var(--muted); margin-top: 1.25rem; margin-bottom: 0; }
+.auth-switch a { color: var(--blue); font-weight: 600; }
+
 .preview-toolbar {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;

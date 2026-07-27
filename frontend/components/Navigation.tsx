@@ -6,12 +6,27 @@ import { useEffect, useState } from 'react';
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(res => (res.ok ? res.json() : null))
+      .then(data => setEmail(data?.email ?? null))
+      .catch(() => setEmail(null));
+  }, []);
+
+  const authLink = email
+    ? <li><Link href="/account">{email}</Link></li>
+    : <>
+        <li><Link href="/signin">Sign In</Link></li>
+        <li><Link href="/signup" className="btn btn--outline">Sign Up</Link></li>
+      </>;
 
   return (
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`} id="nav">
@@ -31,6 +46,7 @@ export default function Navigation() {
             <li><Link href="/#testimonials">Testimonials</Link></li>
             <li><Link href="/dashboard">Dashboard</Link></li>
             <li><Link href="/builder" className="btn btn--primary">Create Agreement</Link></li>
+            {authLink}
           </ul>
         </nav>
         <button className="nav__hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="mobile-nav">&#9776;</button>
@@ -41,6 +57,12 @@ export default function Navigation() {
         <Link href="/#how" onClick={() => setMenuOpen(false)}>How It Works</Link>
         <Link href="/#testimonials" onClick={() => setMenuOpen(false)}>Testimonials</Link>
         <Link href="/builder" className="btn btn--primary" onClick={() => setMenuOpen(false)}>Create Agreement</Link>
+        {email
+          ? <Link href="/account" onClick={() => setMenuOpen(false)}>{email}</Link>
+          : <>
+              <Link href="/signin" onClick={() => setMenuOpen(false)}>Sign In</Link>
+              <Link href="/signup" onClick={() => setMenuOpen(false)}>Sign Up</Link>
+            </>}
       </div>
     </header>
   );
